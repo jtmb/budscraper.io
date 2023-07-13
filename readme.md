@@ -1,6 +1,10 @@
+# What is it?:
+
+budscraper.io is an opensource dockerised, scalable PHP application that lets you search for cheap canabis near your location, filtering by price and rating.
+
 # What it does:
 
-This installs a webserver and php server in docker containers and converts outlook .msg files to a readable HTML format or mac or linux (opens in browser or plain txt) using a friend web interface. (Standalone webserver with website)
+This docker container sets up an instance of budscraper.io
 
 
 # HOW TO RUN: (docker-compose required)
