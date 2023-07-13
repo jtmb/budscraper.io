@@ -11,7 +11,7 @@ services:
     networks:
       - internal
     volumes: 
-     - '/home/brajam/o:/var/www/html/o'
+     - '/temp/o:/var/www/html/o'
 
   php:
     build:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - nginx
     volumes: 
-     - '/home/brajam/o:/var/www/html/o'
+     - '/temp/o:/var/www/html/o'
       
 networks:
   internal:
