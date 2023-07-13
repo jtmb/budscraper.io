@@ -7,7 +7,7 @@ if (isset($_GET['search'])) {
   }
   
   // Append "buy near me" to the query
-  $query .= ' buy near me';
+  $query .= ' marijuana strain buy near me';
   $url = 'https://www.google.com/search?q=' . urlencode($query);
 
   // Perform web scraping
