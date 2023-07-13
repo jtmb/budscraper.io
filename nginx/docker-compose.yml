@@ -1,0 +1,30 @@
+version: "3"
+services:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: always
+    ports: 
+      - "8085:80"
+    networks:
+      - internal
+    volumes: 
+     - '/home/brajam/o:/var/www/html/o'
+
+  php:
+    build:
+      context: .
+      dockerfile: dockerfile-php
+    restart: always
+    networks:
+      - internal
+    depends_on:
+      - nginx
+    volumes: 
+     - '/home/brajam/o:/var/www/html/o'
+      
+networks:
+  internal:
+    driver: bridge

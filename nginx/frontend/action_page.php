@@ -1,6 +1,13 @@
 <?php
 if (isset($_GET['search'])) {
   $query = $_GET['search'];
+  if ($query === '') {
+    echo '<script>alert("Please enter a search query."); window.history.back();</script>';
+    exit;
+  }
+  
+  // Append "buy near me" to the query
+  $query .= ' buy near me';
   $url = 'https://www.google.com/search?q=' . urlencode($query);
 
   // Perform web scraping
@@ -10,20 +17,25 @@ if (isset($_GET['search'])) {
   $dom->loadHTML($html);
   libxml_clear_errors();
 
-  // Extract the top 10 search results
+  // Extract the top 10 search results with "add to cart" or "buy" button
   $results = [];
   $links = $dom->getElementsByTagName('a');
   foreach ($links as $link) {
     $href = $link->getAttribute('href');
     if (strpos($href, '/url?q=') === 0) {
       $url = urldecode(substr($href, 7));
+      // Remove "/&sa", "&sa", or "-1&sa" and any text that follows them in the URL
+      $url = preg_replace('/\/&sa.*|&sa.*|-1&sa.*/', '', $url);
       $title = $link->textContent;
-      $hash = generateRandomHash(); // Generate a random hash
-      $results[] = [
-        'title' => $title,
-        'link' => $url,
-        'hash' => $hash
-      ];
+    //   if (strpos($title, 'add to cart') !== false || strpos($title, 'buy') !== false) 
+    {
+        $hash = generateRandomHash(); // Generate a random hash
+        $results[] = [
+          'title' => $title,
+          'link' => $url,
+          'hash' => $hash
+        ];
+      }
     }
     if (count($results) === 10) {
       break;
@@ -31,20 +43,20 @@ if (isset($_GET['search'])) {
   }
 
   // Generate the results.html page
-  $filename = 'results_' . $results[0]['hash'] . '.html'; // Include the hash in the filename
+  $filename = '/var/www/html/o/results_' . $results[0]['hash'] . '.html'; // Include the hash in the filename
   $file = fopen($filename, 'w');
   if ($file) {
     fwrite($file, '<html>');
     fwrite($file, '<head>');
-    fwrite($file, '<link rel="stylesheet" type="text/css" href="results.css">');
+    fwrite($file, '<link rel="stylesheet" type="text/css" href="/style/results.css">');
     fwrite($file, '</head>');
     fwrite($file, '<body>');
     fwrite($file, '<div class="container">');
     fwrite($file, '<div class="card">');
     fwrite($file, '<div class="card-header">');
     fwrite($file, '<div class="button-container">');
-    fwrite($file, '<a class="goback" href="index.html">Go Back</a>');
-    fwrite($file, '<h3 class="header-title">Search Results for: ' . $query . '</h3>');
+    fwrite($file, '<a class="goback" href="/index.html">Go Back</a>');
+    fwrite($file, '<h3 class="header-title">Search Results for: ' . $_GET['search'] . '</h3>');
     fwrite($file, '<a class="share" onclick="shareResult()">Share This Result</a>');
     fwrite($file, '</div>');
     fwrite($file, '<div class="results">');
@@ -81,11 +93,8 @@ if (isset($_GET['search'])) {
   
     fclose($file);
   
-  
-  
-
     // Redirect to the results.html page
-    header('Location: ' . $filename);
+    header('Location: /o/results_' . $results[0]['hash'] . '.html');
     exit;
   } else {
     echo 'Failed to open ' . $filename . ' file for writing.';
