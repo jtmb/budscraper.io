@@ -48,7 +48,7 @@ if (isset($_GET['search'])) {
   if ($file) {
     fwrite($file, '<html>');
     fwrite($file, '<head>');
-    fwrite($file, '<meta name="viewport" content="width=device-width, initial-scale=0.6" />');
+    fwrite($file, '<meta name="viewport" content="width=device-width, initial-scale=0.5" />');
     fwrite($file, '<link rel="stylesheet" type="text/css" href="/style/results.css">');
     fwrite($file, '</head>');
     fwrite($file, '<body>');
