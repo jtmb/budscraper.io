@@ -94,8 +94,9 @@ if (isset($_GET['search'])) {
   
     fclose($file);
   
-    // Redirect to the results.php page
-    header('Location: /o/results_' . $results[0]['hash'] . '.php');
+    // Redirect to the results.php page nginx is rewriting .php urls so no need to specify .php in header
+    header('Location: /o/results_' . $results[0]['hash']);
+    // header('Location: /o/results_' . $results[0]['hash'] . '.php');
     exit;
   } else {
     echo 'Failed to open ' . $filename . ' file for writing.';
