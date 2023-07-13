@@ -1,4 +1,5 @@
 <?php
+// block users from spaming empty queries
 if (isset($_GET['search'])) {
   $query = $_GET['search'];
   if ($query === '') {
