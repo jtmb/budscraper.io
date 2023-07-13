@@ -43,7 +43,7 @@ if (isset($_GET['search'])) {
   }
 
   // Generate the results.html page
-  $filename = '/var/www/html/o/results_' . $results[0]['hash'] . '.html'; // Include the hash in the filename
+  $filename = '/var/www/html/o/results_' . $results[0]['hash'] . '.php'; // Include the hash in the filename
   $file = fopen($filename, 'w');
   if ($file) {
     fwrite($file, '<html>');
@@ -56,7 +56,7 @@ if (isset($_GET['search'])) {
     fwrite($file, '<div class="card">');
     fwrite($file, '<div class="card-header">');
     fwrite($file, '<div class="button-container">');
-    fwrite($file, '<a class="goback" href="/index.html">Go Back</a>');
+    fwrite($file, '<a class="goback" href="/">Go Back</a>');
     fwrite($file, '<h3 class="header-title">Search Results for: ' . $_GET['search'] . '</h3>');
     fwrite($file, '<a class="share" onclick="shareResult()">Share This Result</a>');
     fwrite($file, '</div>');
@@ -94,8 +94,8 @@ if (isset($_GET['search'])) {
   
     fclose($file);
   
-    // Redirect to the results.html page
-    header('Location: /o/results_' . $results[0]['hash'] . '.html');
+    // Redirect to the results.php page
+    header('Location: /o/results_' . $results[0]['hash'] . '.php');
     exit;
   } else {
     echo 'Failed to open ' . $filename . ' file for writing.';
