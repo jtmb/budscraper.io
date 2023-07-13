@@ -36,7 +36,7 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  background-color: #022c24; /* Fallback background color in case the image is not available or fails to load */
+  background-color: #000000;  /* Fallback background color in case the image is not available or fails to load #022c24 */
 }
 .card {
   border-radius: 10px;
