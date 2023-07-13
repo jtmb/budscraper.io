@@ -1,0 +1,105 @@
+<?php
+if (isset($_GET['search'])) {
+  $query = $_GET['search'];
+  $url = 'https://www.google.com/search?q=' . urlencode($query);
+
+  // Perform web scraping
+  $html = file_get_contents($url);
+  $dom = new DOMDocument();
+  libxml_use_internal_errors(true); // Disable error reporting for malformed HTML
+  $dom->loadHTML($html);
+  libxml_clear_errors();
+
+  // Extract the top 10 search results
+  $results = [];
+  $links = $dom->getElementsByTagName('a');
+  foreach ($links as $link) {
+    $href = $link->getAttribute('href');
+    if (strpos($href, '/url?q=') === 0) {
+      $url = urldecode(substr($href, 7));
+      $title = $link->textContent;
+      $hash = generateRandomHash(); // Generate a random hash
+      $results[] = [
+        'title' => $title,
+        'link' => $url,
+        'hash' => $hash
+      ];
+    }
+    if (count($results) === 10) {
+      break;
+    }
+  }
+
+  // Generate the results.html page
+  $filename = 'results_' . $results[0]['hash'] . '.html'; // Include the hash in the filename
+  $file = fopen($filename, 'w');
+  if ($file) {
+    fwrite($file, '<html>');
+    fwrite($file, '<head>');
+    fwrite($file, '<link rel="stylesheet" type="text/css" href="results.css">');
+    fwrite($file, '</head>');
+    fwrite($file, '<body>');
+    fwrite($file, '<div class="container">');
+    fwrite($file, '<div class="card">');
+    fwrite($file, '<div class="card-header">');
+    fwrite($file, '<div class="button-container">');
+    fwrite($file, '<a class="goback" href="index.html">Go Back</a>');
+    fwrite($file, '<h3 class="header-title">Search Results for: ' . $query . '</h3>');
+    fwrite($file, '<a class="share" onclick="shareResult()">Share This Result</a>');
+    fwrite($file, '</div>');
+    fwrite($file, '<div class="results">');
+  
+    foreach ($results as $result) {
+      $title = $result['title'];
+      $link = $result['link'];
+      fwrite($file, '<div class="result">');
+      fwrite($file, '<h4>' . $title . '</h4>');
+      fwrite($file, '<a href="' . $link . '">' . $link . '</a>');
+      fwrite($file, '</div>');
+    }
+  
+    fwrite($file, '</div>');
+    fwrite($file, '</div>');
+    fwrite($file, '</div>');
+    fwrite($file, '<script>');
+    fwrite($file, 'function shareResult() {');
+    fwrite($file, '  if (navigator.share) {');
+    fwrite($file, '    navigator.share({');
+    fwrite($file, '      title: "Search Result",');
+    fwrite($file, '      text: "Check out this search result:",');
+    fwrite($file, '      url: window.location.href');
+    fwrite($file, '    })');
+    fwrite($file, '      .then(() => console.log("Shared successfully."))');
+    fwrite($file, '      .catch((error) => console.log("Error sharing:", error));');
+    fwrite($file, '  } else {');
+    fwrite($file, '    console.log("Web Share API not supported in this browser.");');
+    fwrite($file, '  }');
+    fwrite($file, '}');
+    fwrite($file, '</script>');
+    fwrite($file, '</body>');
+    fwrite($file, '</html>');
+  
+    fclose($file);
+  
+  
+  
+
+    // Redirect to the results.html page
+    header('Location: ' . $filename);
+    exit;
+  } else {
+    echo 'Failed to open ' . $filename . ' file for writing.';
+  }
+}
+
+function generateRandomHash() {
+  $length = 10;
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  $hash = '';
+  for ($i = 0; $i < $length; $i++) {
+    $index = rand(0, strlen($characters) - 1);
+    $hash .= $characters[$index];
+  }
+  return $hash;
+}
+?>
