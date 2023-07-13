@@ -6,6 +6,8 @@ budscraper.io is an opensource dockerised, scalable PHP application that lets yo
 
 This docker container sets up an instance of budscraper.io
 
+![image](https://github.com/jtmb/budscraper.io/assets/86915618/6cf54ab3-9917-4511-96fb-21a163e4a6e7)
+
 
 # HOW TO RUN: (docker-compose required)
 
