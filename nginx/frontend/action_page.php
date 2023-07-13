@@ -28,7 +28,6 @@ if (isset($_GET['search'])) {
       // Remove "/&sa", "&sa", or "-1&sa" and any text that follows them in the URL
       $url = preg_replace('/\/&sa.*|&sa.*|-1&sa.*/', '', $url);
       $title = $link->textContent;
-    //   if (strpos($title, 'add to cart') !== false || strpos($title, 'buy') !== false) 
     {
         $hash = generateRandomHash(); // Generate a random hash
         $results[] = [
@@ -53,6 +52,10 @@ if (isset($_GET['search'])) {
     fwrite($file, '<link rel="stylesheet" type="text/css" href="/style/results.css">');
     fwrite($file, '</head>');
     fwrite($file, '<body>');
+    fwrite($file, '<div class="star-field">');
+    fwrite($file, '<div class="layer"></div>');
+    fwrite($file, '<div class="layer"></div>');
+    fwrite($file, '<div class="layer"></div></div>');
     fwrite($file, '<div class="container">');
     fwrite($file, '<div class="card">');
     fwrite($file, '<div class="card-header">');
