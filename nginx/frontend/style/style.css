@@ -23,7 +23,7 @@
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
   width: 600px;
   height: 270px;
-  background-color: #ffffff;
+  background-color: #181a1b;
   padding: 10px 30px 40px;
   z-index: 1;
 }
@@ -31,6 +31,7 @@
 .card h3 {
   font-size: 22px;
   font-weight: 600;
+  color: #c9beb9;
   
 }
 
@@ -41,14 +42,14 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border: 3px dotted #a3a3a3;
+  border: 3px dotted #3a3f42;
   border-radius: 5px;
 }
 
 .drop_box h4 {
   font-size: 16px;
   font-weight: 400;
-  color: #2e2e2e;
+  color: #adadad;
 }
 
 .drop_box p {
@@ -58,33 +59,6 @@
   color: #a3a3a3;
 }
 
-.btn {
-  text-decoration: none;
-  background-color: #005af0;
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  outline: none;
-  transition: 0.3s;
-}
-
-.btn:hover{
-  text-decoration: none;
-  background-color: #ffffff;
-  color: #005af0;
-  padding: 10px 20px;
-  border: none;
-  outline: 1px solid #010101;
-}
-.form input {
-  margin: 10px 0;
-  width: 100%;
-  background-color: #e2e2e2;
-  border: none;
-  outline: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-}
 
 * {
   box-sizing: border-box;
@@ -97,14 +71,14 @@ form.example input[type=text] {
   border: 1px solid grey;
   float: left;
   width: 80%;
-  background: #f1f1f1;
+  background: #202324;
 }
 
 /* Style the submit button */
 form.example button {
   float: left;
   width: 20%;
-  padding: 14.5px;
+  padding: 14.3px;
   background: #2196F3;
   color: white;
   font-size: 17px;
