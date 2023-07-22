@@ -24,7 +24,3 @@ services:
       - nginx
     volumes: 
      - '/home/ubuntu/container-program-files/budscraper.io/temp/o:/var/www/html/o'
-      
-networks:
-  internal:
-    driver: bridge
