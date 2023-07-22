@@ -2,6 +2,7 @@ version: "3"
 services:
 
   nginx-budscraper:
+    image: nginx:alpine
     build:
       context: .
       dockerfile: dockerfile
@@ -12,6 +13,7 @@ services:
      - '/home/ubuntu/container-program-files/budscraper.io/temp/o:/var/www/html/o'
 
   php-budscraper:
+    image: php:fpm-alpine
     build:
       context: .
       dockerfile: dockerfile-php
