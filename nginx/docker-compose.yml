@@ -1,7 +1,7 @@
 version: "3"
 services:
 
-  nginx:
+  nginx-budscraper:
     build:
       context: .
       dockerfile: dockerfile
@@ -13,7 +13,7 @@ services:
     volumes: 
      - '/home/ubuntu/container-program-files/budscraper.io/temp/o:/var/www/html/o'
 
-  php:
+  php-budscraper:
     build:
       context: .
       dockerfile: dockerfile-php
