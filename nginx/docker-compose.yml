@@ -11,7 +11,7 @@ services:
     networks:
       - internal
     volumes: 
-     - '/temp/o:/var/www/html/o'
+     - '/home/ubuntu/container-program-files/budscraper.io/temp/o:/var/www/html/o'
 
   php:
     build:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - nginx
     volumes: 
-     - '/temp/o:/var/www/html/o'
+     - '/home/ubuntu/container-program-files/budscraper.io/temp/o:/var/www/html/o'
       
 networks:
   internal:
