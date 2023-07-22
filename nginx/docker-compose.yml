@@ -8,8 +8,6 @@ services:
     restart: always
     ports: 
       - "8085:80"
-    networks:
-      - internal
     volumes: 
      - '/home/ubuntu/container-program-files/budscraper.io/temp/o:/var/www/html/o'
 
@@ -18,8 +16,6 @@ services:
       context: .
       dockerfile: dockerfile-php
     restart: always
-    networks:
-      - internal
     depends_on:
       - nginx
     volumes: 
