@@ -17,6 +17,6 @@ services:
       dockerfile: dockerfile-php
     restart: always
     depends_on:
-      - nginx
+      - nginx-budscraper
     volumes: 
      - '/home/ubuntu/container-program-files/budscraper.io/temp/o:/var/www/html/o'
